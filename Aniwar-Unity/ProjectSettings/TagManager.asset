@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ShieldGem
+  - AttackGem
+  - ManaGem
+  - HealGem
+  - PowerGem
   layers:
   - Default
   - TransparentFX
@@ -40,4 +45,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3896022493
+    locked: 0
+  - name: 'Monster and Character '
+    uniqueID: 159023057
+    locked: 0
+  - name: Gem
+    uniqueID: 2108755189
     locked: 0

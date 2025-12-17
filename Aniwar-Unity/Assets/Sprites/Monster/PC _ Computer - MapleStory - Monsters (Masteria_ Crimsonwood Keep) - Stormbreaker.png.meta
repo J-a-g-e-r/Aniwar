@@ -1,0 +1,485 @@
+fileFormatVersion: 2
+guid: 6263921333e35c647b44d0ceac402708
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 526
+        width: 151
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 410aad98a6cc17c41a6ddeab8ddb6c8d
+      internalID: 404684179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 520
+        width: 197
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca1994413a6382a4080f6d6c68f05a61
+      internalID: 1159000945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_2
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 471
+        width: 178
+        height: 201
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09fa65c7481562647bffb2af077002c5
+      internalID: 952956199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_3
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 470
+        width: 124
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aec635d9173c5df409e6f01574481085
+      internalID: 1968784892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_4
+      rect:
+        serializedVersion: 2
+        x: 694
+        y: 470
+        width: 138
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aa2841fdb42972428baa633183338a3
+      internalID: -500580816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_5
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 470
+        width: 127
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd14e8d315a2fa04699266828b699012
+      internalID: -816583621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_6
+      rect:
+        serializedVersion: 2
+        x: 972
+        y: 470
+        width: 247
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11ac1895df2ef2b42b480c42f2651ad0
+      internalID: 278159941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_7
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 470
+        width: 314
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c0a3147943b7d3408ac6f4434c73f54
+      internalID: -2098867811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_8
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 473
+        width: 335
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31250648c74de8d4eacce39bd0556039
+      internalID: -1310345056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_9
+      rect:
+        serializedVersion: 2
+        x: 1884
+        y: 472
+        width: 247
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e6f5a65109eee468342465dedbb5e1
+      internalID: -794482718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_10
+      rect:
+        serializedVersion: 2
+        x: 2138
+        y: 468
+        width: 227
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd7177df15aabc34dbedbeb2faaa758b
+      internalID: -1216481314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_11
+      rect:
+        serializedVersion: 2
+        x: 2370
+        y: 465
+        width: 233
+        height: 213
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9038491e154481544a2d9a59441d9c41
+      internalID: 804786548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_12
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 347
+        width: 89
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54a25ee1329a1c44b903d722c6622db5
+      internalID: -551342783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_13
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 345
+        width: 102
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7c5073fa12be1e4c817d210099285ae
+      internalID: 991228693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) -
+        Stormbreaker_14
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 339
+        width: 110
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11941cef18e3b3f4fa0ee7ea58b69f77
+      internalID: -1483866462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_0: 404684179
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_1: 1159000945
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_10: -1216481314
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_11: 804786548
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_12: -551342783
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_13: 991228693
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_14: -1483866462
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_2: 952956199
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_3: 1968784892
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_4: -500580816
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_5: -816583621
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_6: 278159941
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_7: -2098867811
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_8: -1310345056
+      PC _ Computer - MapleStory - Monsters (Masteria_ Crimsonwood Keep) - Stormbreaker_9: -794482718
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
