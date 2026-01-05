@@ -10,7 +10,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] public int _width;
     [SerializeField] public int _height;
     [SerializeField] private float _space = 0.77f;
-    [SerializeField] private GameObject[] _gemPrefabs;
+    [SerializeField] private GameObject _gemPrefabs;
+    [SerializeField] private GemVariant[] _gemVariants;
     [SerializeField] public GameObject[,] _allGems;
     [SerializeField] private GameObject _bulletPrefabs;
 
@@ -40,54 +41,22 @@ public class GridManager : MonoBehaviour
     private void OnEnable()
     {
         Gem.OnGemClicked += GemClicked;
-        Gem.OnGemMatched += GemMatched;
-        Gem.OnGemDestroyed += GemDestroyed;
     }
 
     private void OnDisable()
     {
         Gem.OnGemClicked -= GemClicked;
-        Gem.OnGemMatched -= GemMatched;
-        Gem.OnGemDestroyed -= GemDestroyed;
     }
 
     private void GemClicked (Gem gem)
     {
         if (!inputEnabled) return;
-
         StateManager.CurrentState
             ?.GetType()
             ?.GetMethod("OnGemClicked")
             ?.Invoke(StateManager.CurrentState, new object[] { gem });
     }
 
-    private void GemMatched(Gem gem)
-    {
-        
-    }
-
-    private void GemDestroyed(Gem gem)
-    {
-        SpriteRenderer _bulletRenderer = _bulletPrefabs.GetComponent<SpriteRenderer>();
-        if(gem.tag == "AttackGem")
-        {
-            _bulletRenderer.color = Color.yellow;
-        }
-        else if (gem.tag == "HealGem")
-        {
-            _bulletRenderer.color = Color.red;
-        }
-        else if (gem.tag == "ManaGem")
-        {
-            _bulletRenderer.color = Color.blue;
-        }
-        else if(gem.tag == "ShieldGem")
-        {
-            _bulletRenderer.color = Color.white;
-        }
-
-        Instantiate(_bulletRenderer, gem.transform.position, Quaternion.identity);
-    }
 
     //Tạo bảng
     private void SetUp()
@@ -99,7 +68,9 @@ public class GridManager : MonoBehaviour
             {
                 //Vị trí các gem trên màn hình dựa trên i,j
                 Vector2 spawnPos = GetWorldPosition(i, j);
-                GameObject newGems = Instantiate(_gemPrefabs[Random.Range(0, _gemPrefabs.Length)], spawnPos, Quaternion.identity);
+                
+                // Tạo gem và đảm bảo không có match-3
+                GameObject newGems = CreateGemWithoutMatch(i, j, spawnPos);
                 newGems.transform.SetParent(this.transform);
                 newGems.name = $"Gem ({i},{j})";
                 _allGems[i, j] = newGems;
@@ -112,6 +83,69 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Tạo gem mà không tạo match-3
+    private GameObject CreateGemWithoutMatch(int x, int y, Vector2 spawnPos)
+    {
+        List<GemColor> excludedColors = new List<GemColor>();
+
+        // Kiểm tra ngang
+        if (x >= 2)
+        {
+            Gem g1 = _allGems[x - 1, y]?.GetComponent<Gem>();
+            Gem g2 = _allGems[x - 2, y]?.GetComponent<Gem>();
+
+            if (g1 != null && g2 != null &&
+                g1.Variant.color == g2.Variant.color)
+            {
+                excludedColors.Add(g1.Variant.color);
+            }
+        }
+
+        // Kiểm tra dọc
+        if (y >= 2)
+        {
+            Gem g1 = _allGems[x, y - 1]?.GetComponent<Gem>();
+            Gem g2 = _allGems[x, y - 2]?.GetComponent<Gem>();
+
+            if (g1 != null && g2 != null &&
+                g1.Variant.color == g2.Variant.color)
+            {
+                excludedColors.Add(g1.Variant.color);
+            }
+        }
+
+        // Chọn variant hợp lệ
+        List<GemVariant> candidates = new List<GemVariant>();
+        foreach (var v in _gemVariants)
+        {
+            if (!excludedColors.Contains(v.color))
+                candidates.Add(v);
+        }
+
+        GemVariant selected =
+            candidates.Count > 0
+            ? candidates[Random.Range(0, candidates.Count)]
+            : _gemVariants[Random.Range(0, _gemVariants.Length)];
+
+        // Spawn gem
+        GameObject gemObj;
+        if (ObjectPooler.Instance != null)
+        {
+            gemObj = ObjectPooler.Instance.GetObject("Gem", spawnPos, Quaternion.identity);
+        }
+        else
+        {
+            gemObj = Instantiate(GetGemPrefab(), spawnPos, Quaternion.identity);
+        }
+
+        Gem gem = gemObj.GetComponent<Gem>();
+        gem.ResetState();
+        gem.Init(selected);
+        return gemObj;
+
+
     }
 
     // Tính vị trí thế giới từ tọa độ lưới
@@ -139,95 +173,17 @@ public class GridManager : MonoBehaviour
             gemObj.transform.position = targetPos;
         }
     }
-    public GameObject GetRandomGemPrefab()
+
+    public GemVariant GetRandomGemVariant()
     {
-        return _gemPrefabs[Random.Range(0, _gemPrefabs.Length)];
+        //return _gemPrefabs[Random.Range(0, _gemPrefabs.Length)];
+        return _gemVariants[Random.Range(0,_gemVariants.Length)] ;
     }
-    //Hàm được gọi từ Gem khi gem bị phá hủy
-    //public void RemoveGem(Gem gem)
-    //{
-    //    if (gem == null) return;
-    //    if (_allGems == null) return;
 
-    //    int c = gem.column;
-    //    int r = gem.row;
-    //    if (c >= 0 && c < _width && r >= 0 && r < _height)
-    //    {
-    //        if (_allGems[c, r] == gem.gameObject)
-    //        {
-    //            _allGems[c, r] = null;
-    //        }
-    //    }
-
-    //    // Chỉ chạy một coroutine refill tại một thời điểm
-    //    if (!isFilling)
-    //    {
-    //        StartCoroutine(FillBoardCoroutine());
-    //    }
-    //}
-
-    // Refactor sau sang phần Reffill State
-    //private IEnumerator FillBoardCoroutine()
-    //{
-    //    isFilling = true;
-
-    //    // Đợi hết frame hiện tại để gom đủ các gem bị destroy cùng lúc
-    //    yield return new WaitForEndOfFrame();
-
-    //    // Dồn các gem xuống dưới
-    //    for (int x = 0; x < _width; x++)
-    //    {
-    //        int targetRow = 0; // hàng thấp nhất còn trống để đặt gem xuống
-    //        for (int y = 0; y < _height; y++)
-    //        {
-    //            GameObject gemObj = _allGems[x, y];
-    //            if (gemObj != null)
-    //            {
-    //                if (y != targetRow)
-    //                {
-    //                    // Cập nhật mảng và vị trí lưới
-    //                    _allGems[x, targetRow] = gemObj;
-    //                    _allGems[x, y] = null;
-    //                    Gem g = gemObj.GetComponent<Gem>();
-    //                    if (g != null)
-    //                    {
-    //                        g.SetGridPosition(x, targetRow);
-    //                        g.isMatch = false; // reset trạng thái match
-    //                    }
-    //                    // Di chuyển với animation rơi
-    //                    Vector2 targetPos = GetWorldPosition(x, targetRow);
-    //                    StartCoroutine(MoveGemToPosition(gemObj, targetPos));
-    //                }
-    //                targetRow++;
-    //            }
-    //        }
-
-    //        // Sau khi dồn xuống, spawn thêm gem mới cho các ô còn trống
-    //        for (int y = targetRow; y < _height; y++)
-    //        {
-    //            Vector2 spawnPos = GetWorldPosition(x, _height + (y - targetRow)); // spawn cao hơn để tạo hiệu ứng rơi
-    //            Vector2 targetPos = GetWorldPosition(x, y);
-
-    //            GameObject newGem = Instantiate(_gemPrefabs[Random.Range(0, _gemPrefabs.Length)], spawnPos, Quaternion.identity);
-    //            newGem.transform.SetParent(this.transform);
-    //            newGem.name = $"Gem ({x},{y})";
-
-    //            Gem gemComponent = newGem.GetComponent<Gem>();
-    //            if (gemComponent != null)
-    //            {
-    //                gemComponent.SetGridPosition(x, y);
-    //                gemComponent.isMatch = false;
-    //            }
-
-    //            _allGems[x, y] = newGem;
-
-    //            // Animate rơi xuống vị trí đích
-    //            StartCoroutine(MoveGemToPosition(newGem, targetPos));
-    //        }
-    //    }
-
-    //    isFilling = false;
-    //}
+    public GameObject GetGemPrefab()
+    {
+        return _gemPrefabs;
+    }
 
     //Chọn gem
     public void SelectGem(Gem gem)
@@ -249,7 +205,6 @@ public class GridManager : MonoBehaviour
         }
 
     }
-
 
     // Coroutine để swap gem với animation
     public IEnumerator SwapRoutine(Gem gem1, Gem gem2, System.Action onComplete)
@@ -300,6 +255,29 @@ public class GridManager : MonoBehaviour
         inputEnabled = value;
     }
 
-    
+    public void SpawnSpecialGem(int x, int y, GemVariant variant)
+    {
+        GameObject gemObj = ObjectPooler.Instance.GetObject(
+            "Gem",
+            GetWorldPosition(x, y),
+            Quaternion.identity
+        );
+
+        Gem gem = gemObj.GetComponent<Gem>();
+        gem.Init(variant);
+        gem.SetGridPosition(x, y);
+
+        _allGems[x, y] = gemObj;
+    }
+
+    public GemVariant GetSpecialVariant(GemColor color, GemType type)
+    {
+        foreach (var v in _gemVariants)
+        {
+            if (v.color == color && v.type == type)
+                return v;
+        }
+        return null;
+    }
 
 }

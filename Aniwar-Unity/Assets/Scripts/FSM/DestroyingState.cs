@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,6 +50,26 @@ public class DestroyingState : IBoardState
     private IEnumerator DestroyCoroutine()
     {
         yield return new WaitForSeconds(0.15f);
+
+        //// Xác định special
+        //GemType specialType = GetSpecialType(matchedGems.Count);
+
+        //Gem centerGem = null;
+        //GemVariant specialVariant = null;
+
+        //if (specialType != GemType.Normal)
+        //{
+        //    centerGem = GetCenterGem();
+        //    specialVariant = board.GetSpecialVariant(
+        //        centerGem.Variant.color,
+        //        specialType
+        //    );
+
+        //    matchedGems.Remove(centerGem);
+        //}
+
+
+        // Destroy gem thường
         foreach (Gem gem in matchedGems)
         {
             int x = gem.column;
@@ -61,4 +81,24 @@ public class DestroyingState : IBoardState
         board.DeselectGem();
         board.StateManager.ChangeState(new RefillingState(board));
     }
+
+    private GemType GetSpecialType(int count)
+    {
+        if (count == 4)
+            return Random.value < 0.5f ? GemType.HorizontalExplode : GemType.VerticalExplode;
+
+        if (count >= 5)
+            return GemType.ColorExplode;
+
+        return GemType.Normal;
+    }
+
+    private Gem GetCenterGem()
+    {
+        if (board.TargetGem != null && matchedGems.Contains(board.TargetGem))
+            return board.TargetGem;
+
+        return matchedGems[matchedGems.Count / 2];
+    }
+
 }

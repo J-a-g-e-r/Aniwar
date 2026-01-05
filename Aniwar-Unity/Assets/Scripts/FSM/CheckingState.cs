@@ -41,7 +41,7 @@ public class CheckingState : IBoardState
                 if (obj == null) continue;
 
                 Gem gem = obj.GetComponent<Gem>();
-                if (gem == null) continue;
+                if (gem == null || gem.Variant == null) continue;
 
                 // Ngang
                 if (x > 0 && x < board._width - 1)
@@ -50,8 +50,8 @@ public class CheckingState : IBoardState
                     Gem right = board._allGems[x + 1, y]?.GetComponent<Gem>();
 
                     if (left != null && right != null &&
-                        left.tag == gem.tag &&
-                        right.tag == gem.tag)
+                        left.Variant.color == gem.Variant.color &&
+                        right.Variant.color == gem.Variant.color)
                     {
                         gem.SetMatched(true);
                         left.SetMatched(true);
@@ -60,15 +60,15 @@ public class CheckingState : IBoardState
                     }
                 }
 
-                // D?c
+                // Doc
                 if (y > 0 && y < board._height - 1)
                 {
                     Gem down = board._allGems[x, y - 1]?.GetComponent<Gem>();
                     Gem up = board._allGems[x, y + 1]?.GetComponent<Gem>();
 
                     if (down != null && up != null &&
-                        down.tag == gem.tag &&
-                        up.tag == gem.tag)
+                        down.Variant.color == gem.Variant.color &&
+                        up.Variant.color == gem.Variant.color)
                     {
                         gem.SetMatched(true);
                         down.SetMatched(true);

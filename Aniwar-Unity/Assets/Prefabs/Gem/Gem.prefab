@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: -5159360751559770471}
   - component: {fileID: 8773053882050715026}
   m_Layer: 0
-  m_Name: Attack
-  m_TagString: AttackGem
+  m_Name: Gem
+  m_TagString: Gem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -164960836, guid: e25ab1df3e9d86345af54e91931e5d54, type: 3}
+  m_Sprite: {fileID: -328170918, guid: d75031ce433f51c43a32a994c3762906, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,6 @@ MonoBehaviour:
   gridPosition: {x: 0, y: 0}
   column: 0
   row: 0
-  isMatch: 0
 --- !u!61 &8773053882050715026
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +137,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.69, y: 2.69}
+    oldSize: {x: 2.46875, y: 3}
     newSize: {x: 2.69, y: 2.69}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

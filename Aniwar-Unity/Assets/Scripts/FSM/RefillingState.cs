@@ -56,16 +56,27 @@ public class RefillingState : IBoardState
                 Vector2 spawnPos = board.GetWorldPosition(x, y - (targetY + 2));
                 Vector2 targetPos = board.GetWorldPosition(x, y);
 
-                GameObject newGem = Object.Instantiate(
-                    board.GetRandomGemPrefab(),
-                    spawnPos,
-                    Quaternion.identity,
-                    board.transform
-                );
+                GameObject newGem;
+                if (ObjectPooler.Instance != null)
+                {
+                    newGem = ObjectPooler.Instance.GetObject("Gem", spawnPos, Quaternion.identity);
+                    newGem.transform.SetParent(board.transform);
+                }
+                else
+                {
+                    newGem = Object.Instantiate(
+                        board.GetGemPrefab(),
+                        spawnPos,
+                        Quaternion.identity,
+                        board.transform
+                    );
+                }
 
                 Gem gem = newGem.GetComponent<Gem>();
+                gem.ResetState();
+                gem.Init(board.GetRandomGemVariant());
                 gem.SetGridPosition(x, y);
-                gem.SetMatched(false);
+
 
                 board._allGems[x, y] = newGem;
 
