@@ -1,5 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CheckingState : IBoardState
@@ -18,7 +19,7 @@ public class CheckingState : IBoardState
         }
         else
         {
-            board.StateManager.ChangeState(new ReSwappingState(board,board.SelectedGem,board.TargetGem));
+            board.StateManager.ChangeState(new ReSwappingState(board, board.SelectedGem, board.TargetGem));
         }
     }
     public void Execute()
@@ -31,12 +32,17 @@ public class CheckingState : IBoardState
 
     private bool CheckBoard()
     {
+        if (HandleColorExplode())
+        {
+            return true;
+        }
         bool foundMatch = false;
 
         for (int x = 0; x < board._width; x++)
         {
             for (int y = 0; y < board._height; y++)
             {
+
                 GameObject obj = board._allGems[x, y];
                 if (obj == null) continue;
 
@@ -48,6 +54,12 @@ public class CheckingState : IBoardState
                 {
                     Gem left = board._allGems[x - 1, y]?.GetComponent<Gem>();
                     Gem right = board._allGems[x + 1, y]?.GetComponent<Gem>();
+
+                    if (left != null && right != null && left.Variant.type == GemType.ColorExplode &&
+    right.Variant.type == GemType.ColorExplode)
+                    {
+                        DestroyAllGems();
+                    }
 
                     if (left != null && right != null &&
                         left.Variant.color == gem.Variant.color &&
@@ -66,6 +78,11 @@ public class CheckingState : IBoardState
                     Gem down = board._allGems[x, y - 1]?.GetComponent<Gem>();
                     Gem up = board._allGems[x, y + 1]?.GetComponent<Gem>();
 
+                    if(down != null && up != null && down.Variant.type == GemType.ColorExplode &&
+                        up.Variant.type == GemType.ColorExplode)
+                    {
+                        DestroyAllGems();
+                    }
                     if (down != null && up != null &&
                         down.Variant.color == gem.Variant.color &&
                         up.Variant.color == gem.Variant.color)
@@ -75,10 +92,88 @@ public class CheckingState : IBoardState
                         up.SetMatched(true);
                         foundMatch = true;
                     }
+
+                    
                 }
+
             }
         }
 
         return foundMatch;
     }
+
+    private bool HandleColorExplode()
+    {
+        if (board.SelectedGem == null || board.TargetGem == null)
+            return false;
+
+        Gem colorBomb = null;
+        Gem otherGem = null;
+
+        if (board.SelectedGem.Variant.type == GemType.ColorExplode)
+        {
+            colorBomb = board.SelectedGem;
+            otherGem = board.TargetGem;
+        }
+        else if (board.TargetGem.Variant.type == GemType.ColorExplode)
+        {
+            colorBomb = board.TargetGem;
+            otherGem = board.SelectedGem;
+        }
+
+        if (colorBomb == null || otherGem == null)
+            return false;
+
+
+        // Color + Color (chưa xử combo sâu)
+        if (otherGem.Variant.type == GemType.ColorExplode)
+        {
+            DestroyAllGems();
+            return true;
+        }
+
+        GemColor targetColor = otherGem.Variant.color;
+
+        for (int x = 0; x < board._width; x++)
+        {
+            for (int y = 0; y < board._height; y++)
+            {
+                Gem gem = board._allGems[x, y]?.GetComponent<Gem>();
+                if (gem == null) continue;
+
+                if (gem.Variant.type != GemType.ColorExplode &&
+                    gem.Variant.color == targetColor)
+                {
+                    gem.SetMatched(true);
+                }
+            }
+        }
+
+        // Destroy ColorExplode được swap
+        colorBomb.SetMatched(true);
+
+        return true;
+    }
+
+
+    public void DestroyAllGems()
+    {
+        for (int x = 0; x < board._width; x++)
+        {
+            for (int y = 0; y < board._height; y++)
+            {
+
+                GameObject obj = board._allGems[x, y];
+                if (obj == null) continue;
+
+                Gem gem = obj.GetComponent<Gem>();
+                if (gem == null || gem.Variant == null) continue;
+
+                gem.SetMatched(true);
+            }
+        }
+    }
+
+
+
 }

@@ -12,6 +12,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float _space = 0.77f;
     [SerializeField] private GameObject _gemPrefabs;
     [SerializeField] private GemVariant[] _gemVariants;
+    [SerializeField] private GemVariant[] _gemSpecialVariants;
     [SerializeField] public GameObject[,] _allGems;
     [SerializeField] private GameObject _bulletPrefabs;
 
@@ -272,9 +273,20 @@ public class GridManager : MonoBehaviour
 
     public GemVariant GetSpecialVariant(GemColor color, GemType type)
     {
-        foreach (var v in _gemVariants)
+        foreach (var v in _gemSpecialVariants)
         {
             if (v.color == color && v.type == type)
+                return v;
+        }
+        return null;
+    }
+
+    // Lấy ColorExplode variant với bất kỳ màu nào (vì ColorExplode có màu đặc biệt)
+    public GemVariant GetColorExplodeVariant()
+    {
+        foreach (var v in _gemSpecialVariants)
+        {
+            if (v.type == GemType.ColorExplode)
                 return v;
         }
         return null;

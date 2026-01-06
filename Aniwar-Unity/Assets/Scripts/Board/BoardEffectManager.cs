@@ -34,4 +34,40 @@ public class BoardEffectManager : MonoBehaviour
             }
         }
     }
+    public void ClearArea(int column, int row, int radius)
+    {
+        for (int x = column - radius; x <= column + radius; x++)
+        {
+            for (int y = row - radius; y <= row + radius; y++)
+            {
+                if (x >= 0 && x < board._width && y >= 0 && y < board._height)
+                {
+                    Gem gem = board._allGems[x, y]?.GetComponent<Gem>();
+                    if (gem != null)
+                    {
+                        gem.SetMatched(true);
+                    }
+                }
+            }
+        }
+    }
+
+    public void ClearColor(GemColor color)
+    {
+        for (int x = 0; x < board._width; x++)
+        {
+            for (int y = 0; y < board._height; y++)
+            {
+                Gem gem = board._allGems[x, y]?.GetComponent<Gem>();
+                if (gem != null 
+                    && gem.Variant != null 
+                    && gem.Variant.color == color
+                    // Không đánh dấu ColorExplode khác để tránh tự phá lẫn nhau
+                    && gem.Variant.type != GemType.ColorExplode)
+                {
+                    gem.SetMatched(true);
+                }
+            }
+        }
+    }
 }

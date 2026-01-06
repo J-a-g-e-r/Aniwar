@@ -101,6 +101,7 @@ MonoBehaviour:
   gridPosition: {x: 0, y: 0}
   column: 0
   row: 0
+  Variant: {fileID: 0}
 --- !u!61 &8773053882050715026
 BoxCollider2D:
   m_ObjectHideFlags: 0

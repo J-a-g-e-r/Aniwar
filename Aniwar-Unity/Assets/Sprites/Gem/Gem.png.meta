@@ -320,7 +320,7 @@ TextureImporter:
         width: 99
         height: 97
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -341,7 +341,7 @@ TextureImporter:
         width: 99
         height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -362,7 +362,7 @@ TextureImporter:
         width: 99
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -383,7 +383,7 @@ TextureImporter:
         width: 100
         height: 102
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -404,7 +404,7 @@ TextureImporter:
         width: 98
         height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -425,7 +425,7 @@ TextureImporter:
         width: 98
         height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -446,7 +446,7 @@ TextureImporter:
         width: 79
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -467,7 +467,7 @@ TextureImporter:
         width: 76
         height: 95
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -488,7 +488,7 @@ TextureImporter:
         width: 73
         height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -496,6 +496,153 @@ TextureImporter:
       bones: []
       spriteID: dbecb23f066115144af61bffa86b0c25
       internalID: 2101454343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RedAreaExplode
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 475
+        width: 107
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc02506b1763ae4aaa3b4e7f9923331
+      internalID: 1419300092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: YellowAreaExplode
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 839
+        width: 107
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be174c4ec5bac7e488573b3932888d6e
+      internalID: 806152880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GreenAreaExplode
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 721
+        width: 103
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 166db1794d8c0274f9fb6d117600e86b
+      internalID: 2144095829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PurpleAreaExplode
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 611
+        width: 107
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9706d39b8a312a4c988c1ed3b331ea8
+      internalID: 333644491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeAreaExplode
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 376
+        width: 103
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5813905c9ab0ed4c8c7881033ccd7fa
+      internalID: -1075993345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlueAreaExplode
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 934
+        width: 100
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03bc3c9f256d55f4490596b79564aca5
+      internalID: 1422607375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chocolate
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 390
+        width: 94
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 379ac5bcb3a6be54fae848e1bed15325
+      internalID: -1713327908
       vertices: []
       indices: 
       edges: []
@@ -512,21 +659,28 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       Blue: 155505474
+      BlueAreaExplode: 1422607375
       BlueHorizontal: 1075533704
       BlueVertical: 539925401
+      Chocolate: -1713327908
       Green: -678388195
+      GreenAreaExplode: 2144095829
       GreenHorizontal: -351837212
       GreenVerticle: -623880321
       Orange: -628280984
+      OrangeAreaExplode: -1075993345
       OrangeHorizontal: -2105381769
       OrangeVertical: 1394400355
       Purple: -2126243141
+      PurpleAreaExplode: 333644491
       PurpleHorizontal: -1703840690
       PurpleVertical: -1100936838
       Red: -1232475462
+      RedAreaExplode: 1419300092
       RedHorizontal: -1114992954
       RedVerticle: 1410230292
       Yellow: -328170918
+      YellowAreaExplode: 806152880
       YellowHorizontal: 1481265304
       YellowVertical: 2101454343
   mipmapLimitGroupName: 

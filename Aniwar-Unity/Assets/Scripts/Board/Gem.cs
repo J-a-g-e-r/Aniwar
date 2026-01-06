@@ -13,8 +13,7 @@ public class Gem : MonoBehaviour
     public int column;
     public int row;
     public bool isMatched { get; private set; }
-    public GemVariant Variant { get; private set; }
-    public bool IsSpecial => Variant.type != GemType.Normal;
+    public GemVariant Variant;
 
 
     private SpriteRenderer spriteRenderer;
@@ -72,6 +71,7 @@ public class Gem : MonoBehaviour
     {
         isMatched = false;
         SetSelected(false);
+        // skipNextMatchCheck = false;
     }
 
     private void ActivateSpecial()
@@ -88,15 +88,18 @@ public class Gem : MonoBehaviour
                 BoardEffectManager.Instance.ClearColumn(column);
                 break;
 
-            //case GemType.AreaExplode:
-            //    BoardEffectManager.Instance.ClearArea(column, row, 1);
-            //    break;
+            case GemType.AreaExplode:
+                BoardEffectManager.Instance.ClearArea(column, row, 1);
+                break;
 
-            //case GemType.ColorExplode:
-            //    BoardEffectManager.Instance.ClearColor(Variant.color);
-            //    break;
+            case GemType.ColorExplode:
+                BoardEffectManager.Instance.ClearColor(Variant.color);
+                break;
         }
     }
+
+
+
 
 }
 

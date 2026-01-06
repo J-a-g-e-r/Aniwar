@@ -15,7 +15,9 @@ public enum GemColor
     Green,
     Yellow,
     Purple,
-    Orange
+    Orange,
+    Mixed
+
 }
 
 public enum GemType
