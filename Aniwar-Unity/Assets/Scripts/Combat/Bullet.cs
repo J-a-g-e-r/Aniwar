@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [Header("Bullet Properties")]
     [SerializeField] private float speed = 1f;
+    [SerializeField] private int damage = 10;
     private GemColor color;
     private int column;
     private SpriteRenderer spriteRenderer;
@@ -64,6 +66,18 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-     
+        Monster monster = collision.GetComponent<Monster>();
+        if (monster != null && !monster.IsDead())
+        {
+            monster.TakeDamage(damage);
+            if (ObjectPooler.Instance != null)
+            {
+                ObjectPooler.Instance.ReturnObject("Bullet", this.gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

@@ -292,4 +292,14 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    public Vector2 GetMonsterSpawnPosition(int column, float offSetY = 1.5f)
+    {
+        Vector2 basePos = GetWorldPosition(column, _height);
+        return new Vector2(basePos.x, basePos.y + offSetY);
+    }
+
+    public float GetSpace()
+    {
+        return _space;
+    }
 }
