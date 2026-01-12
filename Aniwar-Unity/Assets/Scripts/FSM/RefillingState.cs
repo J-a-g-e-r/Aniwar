@@ -14,6 +14,7 @@ public class RefillingState : IBoardState
     {
         board.EnableInput(false);
         board.StartCoroutine(RefillCoroutine());
+
     }
 
     public void Execute() { }
@@ -83,11 +84,13 @@ public class RefillingState : IBoardState
                 board.StartCoroutine(
                     board.MoveGemToPosition(newGem, targetPos)
                 );
+
             }
         }
-
         // 3️⃣ Đợi animation xong
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+        AudioManager.Instance.CandyLand();
+
 
         // 4️⃣ Check combo
         board.StateManager.ChangeState(

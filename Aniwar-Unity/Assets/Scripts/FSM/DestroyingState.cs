@@ -15,6 +15,7 @@ public class DestroyingState : IBoardState
         board.EnableInput(false);
         CollectMatchedGems();
         board.StartCoroutine(DestroyCoroutine());
+        
 
     }
 
@@ -57,7 +58,6 @@ public class DestroyingState : IBoardState
             CollectMatchedGems();
             if (matchedGems.Count == 0)
                 break;
-
             // Tìm tất cả các group match và tạo special cho mỗi group đủ điều kiện
             List<List<Gem>> allGroups = GetAllMatchGroups();
             HashSet<Gem> gemsToSkip = new HashSet<Gem>(); // Gem đã được chọn làm center cho special
@@ -173,8 +173,9 @@ public class DestroyingState : IBoardState
             // Cho special effect (nếu có) đánh dấu isMatched xong trước khi vòng lặp kế tiếp thu thập
             yield return null;
         }
-
+       
         yield return new WaitForEndOfFrame();
+
         board.DeselectGem();
         board.StateManager.ChangeState(new RefillingState(board));
     }
@@ -184,11 +185,17 @@ public class DestroyingState : IBoardState
         if (count == 4)
             return Random.value < 0.5f ? GemType.HorizontalExplode : GemType.VerticalExplode;
 
-        if (count == 5)
+        if (count == 5) 
+        {
+            AudioManager.Instance.CreateChocolate();
             return GemType.ColorExplode;
+        }
 
         if (count >= 6)
+        {
+            AudioManager.Instance.WrapCandy();
             return GemType.AreaExplode;
+        }
 
         return GemType.Normal;
     }

@@ -15,6 +15,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private Player player;
 
     private List<Monster> activeMonsters = new List<Monster>();
+    private int matchChainCount = 0; // Đếm số lần match liên tiếp
 
     private void Awake()
     {
@@ -33,6 +34,9 @@ public class CombatManager : MonoBehaviour
     {
         Gem.OnGemDestroyed += HandleGemDestroyed;
         BoardStateManager.OnRefillStateCompleted += HandleRefillStateCompleted;
+        BoardStateManager.OnMatchStarted += HandleMatchStarted;
+        BoardStateManager.OnMatchChainEnded += HandleMatchChainEnded;
+        BoardStateManager.OnNewSwapStarted += HandleNewSwapStarted;
         MonsterSpawner.OnWaveCleared += HandleWaveCleared;
         MonsterSpawner.OnAllWavesCleared += HandleAllWavesCleared;
     }
@@ -41,6 +45,9 @@ public class CombatManager : MonoBehaviour
     {
         Gem.OnGemDestroyed -= HandleGemDestroyed;
         BoardStateManager.OnRefillStateCompleted -= HandleRefillStateCompleted;
+        BoardStateManager.OnMatchStarted -= HandleMatchStarted;
+        BoardStateManager.OnMatchChainEnded -= HandleMatchChainEnded;
+        BoardStateManager.OnNewSwapStarted -= HandleNewSwapStarted;
         MonsterSpawner.OnWaveCleared -= HandleWaveCleared;
         MonsterSpawner.OnAllWavesCleared -= HandleAllWavesCleared;
     }
@@ -56,6 +63,10 @@ public class CombatManager : MonoBehaviour
     private void HandleGemDestroyed(Gem gem)
     {
         SpawnBullet(gem);
+                if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.Crack();
+        }
     }
 
     private void SpawnBullet(Gem gem)
@@ -109,6 +120,46 @@ public class CombatManager : MonoBehaviour
     {
         // Sau khi refill xong, tất cả monsters tấn công player
         AttackPlayer();
+    }
+    
+    private void HandleMatchStarted()
+    {
+        // Tăng counter mỗi khi có match
+        matchChainCount++;
+    }
+    
+    private void HandleMatchChainEnded()
+    {
+        // Phát âm thanh dựa vào số match đã đếm được trong chuỗi
+        if (AudioManager.Instance != null)
+        {
+            if (matchChainCount == 3)
+            {
+                AudioManager.Instance.Exclaimations(0);
+            }
+            else if (matchChainCount == 4)
+            {
+                AudioManager.Instance.Exclaimations(1);
+            }
+            else if (matchChainCount == 5)
+            {
+                AudioManager.Instance.Exclaimations(2);
+            }
+            else if (matchChainCount > 5)
+            {
+                AudioManager.Instance.Exclaimations(3);
+            }
+        }
+        
+        UIManager.Instance.ShowExclaimation(matchChainCount);
+        // Reset counter sau khi phát âm thanh
+        matchChainCount = 0;
+    }
+    
+    private void HandleNewSwapStarted()
+    {
+        // Reset counter khi người chơi bắt đầu swap mới (từ IdleState)
+        matchChainCount = 0;
     }
 
     private void AttackPlayer()

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a8631361ff9934fac1941c95b47bde, type: 3}
+  m_Name: SoundsCollection
+  m_EditorClassIdentifier: 
+  MusicGameplay:
+  - {fileID: 11400000, guid: 47237dcbb7f4dd64b86a5d652f2e9979, type: 2}
+  ButtonPress:
+  - {fileID: 0}
+  CandyLand:
+  - {fileID: 11400000, guid: 63e3ffef57587ca4db50cede2707dc2f, type: 2}
+  - {fileID: 11400000, guid: eba9bc14ef35bf7469d85856127f4634, type: 2}
+  - {fileID: 11400000, guid: e7e24003704e183479c0866adf36b9b5, type: 2}
+  - {fileID: 11400000, guid: a7718a221aaeaac43b20bc518ca02560, type: 2}
+  CreateChocolate:
+  - {fileID: 11400000, guid: fe1acbb7e7aeae74e9d2dcddf8055726, type: 2}
+  Combo: []
+  Exclaimations:
+  - {fileID: 11400000, guid: 259a6ce35e074234aad725cc1cce3a83, type: 2}
+  - {fileID: 11400000, guid: ad60d766b6c2a4a46b628683fa549a53, type: 2}
+  - {fileID: 11400000, guid: 08a6bf07640394e46b11ef8db9a775f5, type: 2}
+  - {fileID: 11400000, guid: cf9293cfe5f23174da59a4dfebbf131f, type: 2}
+  LineBlast:
+  - {fileID: 11400000, guid: 7380920e92b887a4b80033666d17358a, type: 2}
+  Swap:
+  - {fileID: 11400000, guid: fa3a5310052ad764481e10f756dc1652, type: 2}
+  WrapCandy:
+  - {fileID: 11400000, guid: 91bc280ddaff39e4abd0fe11a7e445b3, type: 2}
+  WrongSwap:
+  - {fileID: 11400000, guid: cdc77a95a1769f54fb9c9ef45340705d, type: 2}
+  Crack:
+  - {fileID: 11400000, guid: c449430bee27dda4ca8d59cdd1313d1d, type: 2}
+  Bomb:
+  - {fileID: 11400000, guid: d5c08f695f9a5a743bbf374214501987, type: 2}
+  ColorBomb:
+  - {fileID: 11400000, guid: 67739041dc6e7bd4d8afab3c6878d0ce, type: 2}

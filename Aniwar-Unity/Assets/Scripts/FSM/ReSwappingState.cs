@@ -23,6 +23,7 @@ public class ReSwappingState : IBoardState
         }
         board.EnableInput(false);
         board.StartCoroutine(board.SwapRoutine(gem1, gem2, OnRevertDone));
+
     }
 
     public void Execute()
@@ -36,6 +37,7 @@ public class ReSwappingState : IBoardState
     private void OnRevertDone()
     {
         board.DeselectGem();
+        AudioManager.Instance.WrongSwap();
         board.StateManager.ChangeState(new IdleState(board));
     }
 }

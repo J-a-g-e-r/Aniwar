@@ -56,8 +56,10 @@ public class Gem : MonoBehaviour
         if (ObjectPooler.Instance != null)
         {
             ObjectPooler.Instance.ReturnObject("Gem",this.gameObject);
+            SpawnExplodeVFX();
             OnGemDestroyed?.Invoke(this);
         }
+
     }
 
     public void Init(GemVariant variant)
@@ -98,6 +100,11 @@ public class Gem : MonoBehaviour
         }
     }
 
+    private void SpawnExplodeVFX()
+    {
+        GemExplodeVFX vfx = ObjectPooler.Instance.GetObject("GemExplodeVFX", transform.position, Quaternion.identity).GetComponent<GemExplodeVFX>();
+        vfx.PlayVFX(Variant.color);
+    }
 
 
 

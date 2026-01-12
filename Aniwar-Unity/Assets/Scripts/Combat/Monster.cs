@@ -17,6 +17,7 @@ public class Monster : MonoBehaviour
     [Header("Visual")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color flashColor = Color.red;
+    [SerializeField] HealthBar healthBar;
     private Color originalColor;
 
 
@@ -27,6 +28,7 @@ public class Monster : MonoBehaviour
 
     private void Awake()
     {
+        healthBar = GetComponentInChildren<HealthBar>();
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -35,6 +37,11 @@ public class Monster : MonoBehaviour
         {
             originalColor = spriteRenderer.color;
         }
+    }
+
+    private void Start()
+    {
+        healthBar.UpdateHealthBar(currentHP, maxHP);
     }
 
     public void Init(int hp, int damage, int column, int width)
@@ -73,6 +80,7 @@ public class Monster : MonoBehaviour
     {
         if (isDead) return;
         currentHP -= damage;
+        healthBar.UpdateHealthBar(currentHP, maxHP);
         currentHP = Math.Max(0,currentHP);
 
         StartCoroutine(FlashEffect());

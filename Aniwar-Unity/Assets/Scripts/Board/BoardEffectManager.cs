@@ -18,7 +18,10 @@ public class BoardEffectManager : MonoBehaviour
             Gem gem = board._allGems[x, row]?.GetComponent<Gem>();
             if (gem != null)
             {
+
                 gem.SetMatched(true);
+                AudioManager.Instance.LineBlast();
+
             }
         }
     }
@@ -31,6 +34,8 @@ public class BoardEffectManager : MonoBehaviour
             if (gem != null)
             {
                 gem.SetMatched(true);
+                AudioManager.Instance.LineBlast();
+
             }
         }
     }
@@ -46,6 +51,7 @@ public class BoardEffectManager : MonoBehaviour
                     if (gem != null)
                     {
                         gem.SetMatched(true);
+                        AudioManager.Instance.Bomb();
                     }
                 }
             }
@@ -66,8 +72,10 @@ public class BoardEffectManager : MonoBehaviour
                     && gem.Variant.type != GemType.ColorExplode)
                 {
                     gem.SetMatched(true);
+
                 }
             }
         }
+        AudioManager.Instance.ColorBomb();
     }
 }

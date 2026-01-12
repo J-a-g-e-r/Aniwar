@@ -1,11 +1,13 @@
-using System;
+﻿using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI; // Thêm dòng này
 
 public class Player : MonoBehaviour
 {
-    public static event Action<int, int> OnHealthChanged; // currentHP, maxHP
-    public static event Action<int, int> OnManaChanged; // currentMana, maxMana
+    public static event Action<int, int> OnHealthChanged;
+    public static event Action<int, int> OnManaChanged;
     public static event Action OnPlayerDied;
 
     [Header("Player Stats")]
@@ -14,11 +16,16 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxMana = 10;
     [SerializeField] private int currentMana;
 
+    [Header("UI References")]
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider manaBar;
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI manaText; 
+
     [Header("Visual")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color flashColor = Color.red;
     private Color originalColor;
-
     private bool isDead = false;
 
     private void Awake()
@@ -42,10 +49,14 @@ public class Player : MonoBehaviour
     {
         if (hp > 0) maxHP = hp;
         if (mana > 0) maxMana = mana;
-        
+
         currentHP = maxHP;
         currentMana = maxMana;
         isDead = false;
+
+        UpdateHealthBar();
+        UpdateManaBar();
+        UpdateText();
 
         OnHealthChanged?.Invoke(currentHP, maxHP);
         OnManaChanged?.Invoke(currentMana, maxMana);
@@ -58,7 +69,10 @@ public class Player : MonoBehaviour
         currentHP -= damage;
         currentHP = Math.Max(0, currentHP);
 
+        UpdateHealthBar();
+        UpdateText();   
         OnHealthChanged?.Invoke(currentHP, maxHP);
+        UIManager.Instance.ShowDamage(damage);
         StartCoroutine(FlashEffect());
 
         if (currentHP <= 0)
@@ -71,6 +85,9 @@ public class Player : MonoBehaviour
     {
         currentMana += amount;
         currentMana = Math.Min(currentMana, maxMana);
+
+        UpdateManaBar();
+        UpdateText();
         OnManaChanged?.Invoke(currentMana, maxMana);
     }
 
@@ -79,6 +96,8 @@ public class Player : MonoBehaviour
         if (currentMana >= amount)
         {
             currentMana -= amount;
+            UpdateManaBar();
+            UpdateText();
             OnManaChanged?.Invoke(currentMana, maxMana);
             return true;
         }
@@ -88,9 +107,37 @@ public class Player : MonoBehaviour
     public void Heal(int amount)
     {
         if (isDead) return;
+
         currentHP += amount;
         currentHP = Math.Min(currentHP, maxHP);
+
+        UpdateHealthBar();
+        UpdateText();
         OnHealthChanged?.Invoke(currentHP, maxHP);
+    }
+
+    private void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.maxValue = maxHP;
+            healthBar.value = currentHP;
+        }
+    }
+
+    private void UpdateManaBar()
+    {
+        if (manaBar != null)
+        {
+            manaBar.maxValue = maxMana;
+            manaBar.value = currentMana;
+        }
+    }
+
+    private void UpdateText()
+    {
+        healthText.text = $"{currentHP} / {maxHP}";
+        manaText.text = $"{currentMana} / {maxMana}";
     }
 
     private IEnumerator FlashEffect()
@@ -109,14 +156,11 @@ public class Player : MonoBehaviour
         isDead = true;
         OnPlayerDied?.Invoke();
         Debug.Log("Player died!");
-        // TODO: Trigger game over
     }
 
-    // Getters
     public int GetCurrentHP() => currentHP;
     public int GetMaxHP() => maxHP;
     public int GetCurrentMana() => currentMana;
     public int GetMaxMana() => maxMana;
     public bool IsDead() => isDead;
 }
-
