@@ -170,6 +170,19 @@ public class AudioManager : MonoBehaviour
         PlayRandomSound(_soundColection.Crack);
     }
 
+    public void Heal()
+    {
+        PlayRandomSound(_soundColection.Heal);
+    }
+    public void DestroyBoost()
+    {
+        PlayRandomSound(_soundColection.DestroyBoost);
+    }
+
+    public void ComboSound(int s)
+    {
+        PlaySound(_soundColection.Combo[s]);
+    }
     #endregion
 
     #region Music

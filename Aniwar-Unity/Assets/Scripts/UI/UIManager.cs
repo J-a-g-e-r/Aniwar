@@ -17,7 +17,13 @@ public class UIManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private ExclamationUI exclaimationPrefab;
     [SerializeField] private DamageUI damagePrefab;
+    [SerializeField] private HealUI healPrefab;
+    [SerializeField] private WaveUI waveUIPrefab;
+    [SerializeField] private InteractUI interactPrefab;
     [SerializeField] private RectTransform canvasRoot;
+    [SerializeField] private Camera mainCamera; 
+    
+
 
     private void Awake()
     {
@@ -66,5 +72,35 @@ public class UIManager : MonoBehaviour
         DamageUI ui = Instantiate(damagePrefab, canvasRoot);
         ui.transform.localPosition = new Vector3(-4.3f, -258f, 0);
         ui.Play(damage);
+    }
+
+    public void ShowHealAmount(int amount)
+    {
+        HealUI uI = Instantiate(healPrefab, canvasRoot);
+        uI.transform.localPosition = new Vector3(-4.3f, -258f, 0);
+        uI.Play(amount);
+    }
+
+    public void ShowInteract(string text)
+    {
+        InteractUI uI = Instantiate(interactPrefab, canvasRoot);
+        uI.transform.localPosition = new Vector3(-64, -174f, 0);
+        uI.Play(text);
+    }
+
+    public void ShowWaveUI(int waveIndex, int totalWave)
+    {
+        WaveUI uI = Instantiate(waveUIPrefab, canvasRoot);
+        uI.transform.localPosition = new Vector3(0, 125, 0);
+        uI.Play(waveIndex,totalWave);
+    }
+
+    public void ShowPointUI(int point, Gem gem)
+    {
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(gem.transform.position);
+        PointUI uI = ObjectPooler.Instance.GetObject("PointUI",Vector3.zero,Quaternion.identity).GetComponent<PointUI>();
+        uI.transform.SetParent(canvasRoot, false);
+        uI.transform.position = screenPos;
+        uI.Play(point, gem.Variant.color);
     }
 }

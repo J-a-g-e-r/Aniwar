@@ -1869,6 +1869,9 @@ MonoBehaviour:
   - tag: Monster
     prefabs: {fileID: 7408323485554077863, guid: 7184a0797c9dfc344a85ab53de7070f2, type: 3}
     size: 10
+  - tag: GemExplodeVFX
+    prefabs: {fileID: 3605957913553629361, guid: dc6f8ccd17d97a949ba4c3cf6213c4b4, type: 3}
+    size: 100
 --- !u!4 &872575229
 Transform:
   m_ObjectHideFlags: 0

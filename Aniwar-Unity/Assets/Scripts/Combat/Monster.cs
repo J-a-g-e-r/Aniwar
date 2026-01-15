@@ -17,6 +17,7 @@ public class Monster : MonoBehaviour
     [Header("Visual")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color flashColor = Color.red;
+    [SerializeField] private Animator animator;
     [SerializeField] HealthBar healthBar;
     private Color originalColor;
 
@@ -28,6 +29,7 @@ public class Monster : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         healthBar = GetComponentInChildren<HealthBar>();
         if (spriteRenderer == null)
         {
@@ -83,12 +85,30 @@ public class Monster : MonoBehaviour
         healthBar.UpdateHealthBar(currentHP, maxHP);
         currentHP = Math.Max(0,currentHP);
 
+        if(animator != null)
+        {
+            animator.SetTrigger("IsDamaged");
+        }
         StartCoroutine(FlashEffect());
 
         if (currentHP <= 0)
         {
             Die();
         }
+    }
+
+    // Monster tự tấn công player (dùng để dễ gắn animation)
+    public void Attack(Player player)
+    {
+        if (isDead || player == null || player.IsDead())
+            return;
+
+        // Trigger animation tấn công (nếu có)
+        if (animator != null)
+        {
+            animator.SetTrigger("IsAttack");
+        }
+
     }
 
     private IEnumerator FlashEffect()
@@ -106,9 +126,19 @@ public class Monster : MonoBehaviour
         if (isDead) return;
         isDead = true;
         OnMonsterDied?.Invoke(this);
-        // Thêm hiệu ứng chết ở đây nếu cần
-        if(ObjectPooler.Instance != null)
+        if(animator != null)
         {
+            animator.SetTrigger("IsDead");
+        }
+        StartCoroutine(DelayReturnToPool());
+    }
+
+    private IEnumerator DelayReturnToPool()
+    {
+        yield return new WaitForSeconds(1f);
+        if (ObjectPooler.Instance != null)
+        {
+            // Trả về pool chung "Monster"
             ObjectPooler.Instance.ReturnObject("Monster", this.gameObject);
         }
         else

@@ -20,5 +20,7 @@ public class SoundColection : ScriptableObject
     public SoundData[] Crack;
     public SoundData[] Bomb;
     public SoundData[] ColorBomb;
+    public SoundData[] DestroyBoost;
+    public SoundData[] Heal;
 }
 

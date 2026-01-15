@@ -55,7 +55,7 @@ public class CheckingState : IBoardState
                     Gem left = board._allGems[x - 1, y]?.GetComponent<Gem>();
                     Gem right = board._allGems[x + 1, y]?.GetComponent<Gem>();
 
-                    if (left != null && right != null && left.Variant.type == GemType.ColorExplode &&
+                    if (left != null && right != null && left.Variant.type == GemType.ColorExplode && gem.Variant.type == GemType.ColorExplode &&
     right.Variant.type == GemType.ColorExplode)
                     {
                         DestroyAllGems();
@@ -78,7 +78,7 @@ public class CheckingState : IBoardState
                     Gem down = board._allGems[x, y - 1]?.GetComponent<Gem>();
                     Gem up = board._allGems[x, y + 1]?.GetComponent<Gem>();
 
-                    if(down != null && up != null && down.Variant.type == GemType.ColorExplode &&
+                    if(down != null && up != null && down.Variant.type == GemType.ColorExplode && gem.Variant.type == GemType.ColorExplode &&
                         up.Variant.type == GemType.ColorExplode)
                     {
                         DestroyAllGems();

@@ -16,6 +16,7 @@ public class CombatManager : MonoBehaviour
 
     private List<Monster> activeMonsters = new List<Monster>();
     private int matchChainCount = 0; // Đếm số lần match liên tiếp
+    private int point = 10;
 
     private void Awake()
     {
@@ -63,6 +64,7 @@ public class CombatManager : MonoBehaviour
     private void HandleGemDestroyed(Gem gem)
     {
         SpawnBullet(gem);
+        UIManager.Instance.ShowPointUI(point, gem);
                 if (AudioManager.Instance != null)
         {
             AudioManager.Instance.Crack();
@@ -126,6 +128,7 @@ public class CombatManager : MonoBehaviour
     {
         // Tăng counter mỗi khi có match
         matchChainCount++;
+        AudioManager.Instance.ComboSound(matchChainCount);
     }
     
     private void HandleMatchChainEnded()
@@ -175,6 +178,7 @@ public class CombatManager : MonoBehaviour
             if (monster != null && !monster.IsDead())
             {
                 totalDamage += monster.GetDamage();
+                monster.Attack(player);
             }
         }
 

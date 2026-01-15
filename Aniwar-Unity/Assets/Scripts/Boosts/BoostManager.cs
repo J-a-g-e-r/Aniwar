@@ -9,7 +9,12 @@ public class BoostManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private GridManager gridManager;
     [SerializeField] private Player player;
-    
+
+
+    [Header("VFX")]
+    [SerializeField] private GameObject thunder;
+    [SerializeField] private GameObject heal;
+
     private Boost activeBoost;
     private bool isWaitingForGemSelection = false;
     
@@ -54,12 +59,13 @@ public class BoostManager : MonoBehaviour
         // Check if player has enough mana
         if (!player.UseMana(boost.manaCost))
         {
+            UIManager.Instance.ShowInteract("Không đủ mana!");
             Debug.Log($"Không đủ mana! Cần {boost.manaCost} mana.");
             return false;
         }
         
         activeBoost = boost;
-        
+
         // Handle different boost types
         switch (boost.boostType)
         {
@@ -68,6 +74,7 @@ public class BoostManager : MonoBehaviour
                 // These boosts need gem selection
                 isWaitingForGemSelection = true;
                 // Change to boost selection state
+                UIManager.Instance.ShowInteract("Chọn một viên ngọc");
                 gridManager.StateManager.ChangeState(new BoostSelectionState(gridManager, this));
                 break;
                 
@@ -125,6 +132,8 @@ public class BoostManager : MonoBehaviour
         {
             BoardEffectManager.Instance.ClearRow(gem.row);
             BoardEffectManager.Instance.ClearColumn(gem.column);
+            gem.SpawnDestroyColumnVFX();
+            gem.SpawnDestroyRowVFX();
         }
         
         // Also mark the gem itself as matched to destroy it
@@ -144,7 +153,11 @@ public class BoostManager : MonoBehaviour
         
         // Just mark the gem as matched to destroy it
         gem.SetMatched(true);
-        
+        if (thunder != null)
+        {
+            Instantiate(thunder, gem.transform.position, Quaternion.identity);
+        }
+        AudioManager.Instance.DestroyBoost();
         // Trigger destroying state to process the matched gem
         gridManager.StateManager.ChangeState(new DestroyingState(gridManager));
     }
@@ -157,6 +170,10 @@ public class BoostManager : MonoBehaviour
         // Heal for 30 HP (you can adjust this value or make it configurable)
         int healAmount = 250;
         player.Heal(healAmount);
+        if (heal != null)
+        {
+            Instantiate(heal, player.transform.position + new Vector3(0, -1f), Quaternion.identity);
+        }
         Debug.Log($"Hồi máu {healAmount} HP!");
     }
     

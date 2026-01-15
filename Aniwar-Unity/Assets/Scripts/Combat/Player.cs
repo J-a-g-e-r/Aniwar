@@ -20,7 +20,11 @@ public class Player : MonoBehaviour
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider manaBar;
     [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private TextMeshProUGUI manaText; 
+    [SerializeField] private TextMeshProUGUI manaText;
+    [SerializeField] private Animator animator; 
+    
+    
+    
 
     [Header("Visual")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -30,6 +34,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -72,8 +77,12 @@ public class Player : MonoBehaviour
         UpdateHealthBar();
         UpdateText();   
         OnHealthChanged?.Invoke(currentHP, maxHP);
-        UIManager.Instance.ShowDamage(damage);
+        if (animator != null)
+        {
+            animator.SetTrigger("IsDamaged");
+        }
         StartCoroutine(FlashEffect());
+        UIManager.Instance.ShowDamage(damage);
 
         if (currentHP <= 0)
         {
@@ -113,6 +122,8 @@ public class Player : MonoBehaviour
 
         UpdateHealthBar();
         UpdateText();
+        UIManager.Instance.ShowHealAmount(amount);
+        AudioManager.Instance.Heal();
         OnHealthChanged?.Invoke(currentHP, maxHP);
     }
 

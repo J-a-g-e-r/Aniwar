@@ -12,6 +12,7 @@ public class Gem : MonoBehaviour
     public Vector2Int gridPosition;
     public int column;
     public int row;
+
     public bool isMatched { get; private set; }
     public GemVariant Variant;
 
@@ -84,14 +85,17 @@ public class Gem : MonoBehaviour
         {
             case GemType.HorizontalExplode:
                 BoardEffectManager.Instance.ClearRow(row);
+                SpawnDestroyRowVFX();
                 break;
 
             case GemType.VerticalExplode:
                 BoardEffectManager.Instance.ClearColumn(column);
+                SpawnDestroyColumnVFX();
                 break;
 
             case GemType.AreaExplode:
                 BoardEffectManager.Instance.ClearArea(column, row, 1);
+                SpawnBombExPlodeVFX();
                 break;
 
             case GemType.ColorExplode:
@@ -106,8 +110,21 @@ public class Gem : MonoBehaviour
         vfx.PlayVFX(Variant.color);
     }
 
+    public void SpawnDestroyRowVFX()
+    {
+        GameObject obj = ObjectPooler.Instance.GetObject("DestroyRowVFX", transform.position, Quaternion.identity);
+    }
 
+    public void SpawnDestroyColumnVFX()
+    {
+        GameObject obj = ObjectPooler.Instance.GetObject("DestroyColumnVFX", transform.position, Quaternion.identity);
+    }
 
+    public void SpawnBombExPlodeVFX()
+    {
+        GameObject obj = ObjectPooler.Instance.GetObject("BombExplodeVFX", transform.position, Quaternion.identity);
+    }
+    
 }
 
 

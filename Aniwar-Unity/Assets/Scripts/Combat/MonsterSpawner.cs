@@ -85,8 +85,9 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         currentWaveIndex = waveIndex;
-        WaveData wave = waves[waveIndex];
 
+        WaveData wave = waves[waveIndex];
+        UIManager.Instance.ShowWaveUI(waveIndex + 1,waves.Count);
         // Generate spawn columns for monsters that don't have specified columns
         List<int> availableColumns = new List<int>();
         for (int i = 0; i < gridManager._width; i++)
@@ -158,9 +159,17 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         GameObject monsterObj;
+
         if (ObjectPooler.Instance != null)
         {
+            // Dùng một pool chung với tag "Monster"
             monsterObj = ObjectPooler.Instance.GetObject("Monster", spawnPos, Quaternion.identity);
+
+            // Nếu pool chưa có hoặc hết object, fallback sang Instantiate prefab gốc
+            if (monsterObj == null)
+            {
+                monsterObj = Instantiate(monsterPrefab, spawnPos, Quaternion.identity);
+            }
         }
         else
         {
@@ -172,6 +181,21 @@ public class MonsterSpawner : MonoBehaviour
         if (monster == null)
         {
             monster = monsterObj.AddComponent<Monster>();
+        }
+
+        // Áp dụng visual / animator từ prefab template sang instance được lấy từ pool chung
+        SpriteRenderer prefabSR = monsterPrefab.GetComponent<SpriteRenderer>();
+        SpriteRenderer instanceSR = monsterObj.GetComponent<SpriteRenderer>();
+        if (prefabSR != null && instanceSR != null)
+        {
+            instanceSR.sprite = prefabSR.sprite;
+        }
+
+        Animator prefabAnim = monsterPrefab.GetComponent<Animator>();
+        Animator instanceAnim = monsterObj.GetComponent<Animator>();
+        if (prefabAnim != null && instanceAnim != null)
+        {
+            instanceAnim.runtimeAnimatorController = prefabAnim.runtimeAnimatorController;
         }
 
         monster.Init(hp, damage, column, columnWidth);
