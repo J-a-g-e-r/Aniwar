@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Diagnostics;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -15,18 +17,64 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioMixerGroup _sfxMixerGroup;
     [SerializeField] private AudioMixerGroup _musicMixerGroup;
+    [SerializeField] private AudioMixerGroup _masterMixerGroup;
+    [SerializeField] private AudioMixer _audioMixer;
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _sfxSlider;
+
+
+    private bool _musicMuted;
+    private bool _sfxMuted;
 
     private AudioSource _currentMusic;
 
     #region Unity Methods
     private void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
+            //_musicMuted = PlayerPrefs.GetInt("Music", 1) == 0;
+            //_sfxMuted = PlayerPrefs.GetInt("SFX", 1) == 0;
+            _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume");
+        _sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume");
+        SetMusicVolume();
+        SetSFXVolume();
+        if (SceneManager.GetActiveScene().buildIndex >= 1)
+        {
+            MusicGameplay();
+        } else if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            MusicMenu();
+        }
+
+
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        if (Instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //EnsureMusicPlaying();
     }
 
 
     private void Start()
     {
+       // EnsureMusicPlaying();
     }
 
     #endregion
@@ -117,6 +165,19 @@ public class AudioManager : MonoBehaviour
             _currentMusic = audioSource;
         }
     }
+
+    public void StopCurrentMusicFade(float fadeTime = 1f)
+    {
+        if (_currentMusic == null) return;
+
+        _currentMusic.DOFade(0f, fadeTime).OnComplete(() =>
+        {
+            _currentMusic.Stop();
+            Destroy(_currentMusic.gameObject);
+            _currentMusic = null;
+        });
+    }
+
     #endregion
 
     #region SFX
@@ -125,6 +186,19 @@ public class AudioManager : MonoBehaviour
         PlayRandomSound(_soundColection.ButtonPress);
     }
 
+    public void WinMusic()
+    {
+        PlayRandomSound(_soundColection.WinMusic);
+    }
+
+    public void LoseMusic()
+    {
+        PlayRandomSound(_soundColection.LoseMusic);
+    }
+    public void Star(int s)
+    {
+        PlaySound(_soundColection.Star[s]);
+    }
     public void CandyLand()
     {
         PlayRandomSound(_soundColection.CandyLand);
@@ -191,6 +265,22 @@ public class AudioManager : MonoBehaviour
         PlayRandomSound(_soundColection.MusicGameplay);
     }
 
+
+    public void MusicMenu()
+    {
+        PlayRandomSound(_soundColection.MusicMenu);
+    }
+    //private void EnsureMusicPlaying()
+    //{
+    //    if (_musicMuted) return;
+
+    //    // Nếu chưa có nhạc hoặc nhạc đã dừng (do reload scene), bật lại
+    //    if (_currentMusic == null || !_currentMusic.isPlaying)
+    //    {
+    //        MusicGameplay();
+    //    }
+    //}
+
     public void Bomb()
     {
         PlayRandomSound(_soundColection.Bomb);
@@ -201,5 +291,53 @@ public class AudioManager : MonoBehaviour
         PlayRandomSound(_soundColection.ColorBomb);
     }
     #endregion
+
+
+    // ===== MUSIC =====
+    //public void ToggleMusic()
+    //{
+    //    _musicMuted = !_musicMuted;
+    //    PlayerPrefs.SetInt("Music", _musicMuted ? 0 : 1);
+    //    PlayerPrefs.Save();
+
+    //    ApplyMusic();
+    //}
+
+    //private void ApplyMusic()
+    //{
+    //    _audioMixer.SetFloat("MusicVolume", _musicMuted ? -80f : 0f);
+    //}
+
+    //public bool IsMusicMuted() => _musicMuted;
+
+
+    // ===== SFX =====
+    //public void ToggleSFX()
+    //{
+    //    _sfxMuted = !_sfxMuted;
+    //    PlayerPrefs.SetInt("SFX", _sfxMuted ? 0 : 1);
+    //    PlayerPrefs.Save();
+
+    //    ApplySFX();
+    //}
+
+    //private void ApplySFX()
+    //{
+    //    _audioMixer.SetFloat("SFXVolume", _sfxMuted ? -80f : 0f);
+    //}
+
+    public void SetMusicVolume()
+    {
+        _audioMixer.SetFloat("MusicVolume", _musicSlider.value);
+        PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
+    }
+
+    public void SetSFXVolume()
+    {
+        _audioMixer.SetFloat("SFXVolume", _sfxSlider.value);
+        PlayerPrefs.SetFloat("SFXVolume", _sfxSlider.value);
+    }
+
+    //public bool IsSFXMuted() => _sfxMuted;
 
 }

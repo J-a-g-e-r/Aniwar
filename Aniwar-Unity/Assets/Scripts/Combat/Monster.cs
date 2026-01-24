@@ -26,6 +26,9 @@ public class Monster : MonoBehaviour
     [SerializeField] private int startColumn;
     [SerializeField] private int columnWidth;
 
+    [SerializeField] private MonsterProjectile projectilePrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform player;
 
     private void Awake()
     {
@@ -109,6 +112,8 @@ public class Monster : MonoBehaviour
             animator.SetTrigger("IsAttack");
         }
 
+        MonsterProjectile prj= Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        prj.Init(player.transform);
     }
 
     private IEnumerator FlashEffect()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -21,10 +22,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private WaveUI waveUIPrefab;
     [SerializeField] private InteractUI interactPrefab;
     [SerializeField] private RectTransform canvasRoot;
-    [SerializeField] private Camera mainCamera; 
+    [SerializeField] private Camera mainCamera;
+
+
     
-
-
     private void Awake()
     {
         if (Instance == null)

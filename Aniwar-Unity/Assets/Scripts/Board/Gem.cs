@@ -59,6 +59,7 @@ public class Gem : MonoBehaviour
             ObjectPooler.Instance.ReturnObject("Gem",this.gameObject);
             SpawnExplodeVFX();
             OnGemDestroyed?.Invoke(this);
+            CombatManager.Instance.AddPoint(CombatManager.Instance.GetPoint());
         }
 
     }

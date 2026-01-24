@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MusicGameplay:
   - {fileID: 11400000, guid: 47237dcbb7f4dd64b86a5d652f2e9979, type: 2}
+  WinMusic:
+  - {fileID: 11400000, guid: 1d95e3cc51acd7b4ebb8288ce422c315, type: 2}
+  LoseMusic:
+  - {fileID: 11400000, guid: b8e1e889bedc76a4098441ef16117a64, type: 2}
+  MusicMenu:
+  - {fileID: 11400000, guid: 45a3db3e52803f142a49595c30361f00, type: 2}
   ButtonPress:
   - {fileID: 0}
   CandyLand:
@@ -59,3 +65,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21e4806bd688e6240af4a7eaa94ab6dd, type: 2}
   Heal:
   - {fileID: 11400000, guid: 6155f3f1f2332f34389f7ff659128a92, type: 2}
+  Star:
+  - {fileID: 11400000, guid: 815fdf5eb1c01fe4d9b4df04416b1bd1, type: 2}
+  - {fileID: 11400000, guid: bf5f7b790e232c04f8bfc41c7dfe165f, type: 2}
+  - {fileID: 11400000, guid: 4faebac57eba31c458b5d8aab3f35b5a, type: 2}

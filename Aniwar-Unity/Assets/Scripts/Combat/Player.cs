@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI; // Thêm dòng này
+using UnityEngine.UI; // Th�m d?ng n�y
 
 public class Player : MonoBehaviour
 {
@@ -166,6 +166,7 @@ public class Player : MonoBehaviour
         if (isDead) return;
         isDead = true;
         OnPlayerDied?.Invoke();
+
         Debug.Log("Player died!");
     }
 

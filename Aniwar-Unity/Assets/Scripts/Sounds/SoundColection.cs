@@ -5,6 +5,9 @@ public class SoundColection : ScriptableObject
 {
     [Header("Music")]
     public SoundData[] MusicGameplay;
+    public SoundData[] WinMusic;
+    public SoundData[] LoseMusic;
+    public SoundData[] MusicMenu;
 
 
     [Header("SFX")]
@@ -22,5 +25,6 @@ public class SoundColection : ScriptableObject
     public SoundData[] ColorBomb;
     public SoundData[] DestroyBoost;
     public SoundData[] Heal;
+    public SoundData[] Star;
 }
 
