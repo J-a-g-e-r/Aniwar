@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using Cysharp.Threading.Tasks;
 
 public class GridManager : MonoBehaviour
 {
@@ -11,8 +14,15 @@ public class GridManager : MonoBehaviour
     [SerializeField] public int _height;
     [SerializeField] private float _space = 0.77f;
     [SerializeField] private GameObject _gemPrefabs;
-    [SerializeField] private GemVariant[] _gemVariants;
-    [SerializeField] private GemVariant[] _gemSpecialVariants;
+    
+    [Header("Level Configuration")]
+    [SerializeField] private LevelData _levelData;
+    
+    // Loaded variants từ Addressables
+    private List<GemVariant> _loadedGemVariants = new List<GemVariant>();
+    private List<GemVariant> _loadedSpecialVariants = new List<GemVariant>();
+    //private bool _variantsLoaded = false;
+    
     [SerializeField] public GameObject[,] _allGems;
     [SerializeField] private GameObject _bulletPrefabs;
 
@@ -32,11 +42,106 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         _allGems = new GameObject[_width, _height];
+        InitializeLevel().Forget();
+    }
+
+    private async UniTaskVoid InitializeLevel()
+    {
+        if (_levelData == null)
+        {
+            Debug.LogError("LevelData is not assigned!");
+            return;
+        }
+
+        // Lấy variants đã được preload từ LevelLoaderManager
+        if (LevelLoaderManager.Instance != null)
+        {
+            _loadedGemVariants = LevelLoaderManager.Instance.GetLoadedGemVariants(_levelData);
+            _loadedSpecialVariants = LevelLoaderManager.Instance.GetLoadedSpecialVariants(_levelData);
+        }
+        else
+        {
+            Debug.LogError("LevelLoaderManager.Instance is null! Falling back to loading from Addressables...");
+            // Fallback: load lại nếu không có preload
+            await LoadGemVariantsFromAddressables();
+        }
+
+        // Cập nhật width và height từ LevelData
+        if (_levelData.width > 0) _width = _levelData.width;
+        if (_levelData.height > 0) _height = _levelData.height;
+        _allGems = new GameObject[_width, _height];
+
+        if (_loadedGemVariants.Count == 0)
+        {
+            Debug.LogError("No gem variants loaded!");
+            return;
+        }
+
         SetUp();
         StateManager = new BoardStateManager();
         StateManager.ChangeState(new IdleState(this));
+    }
 
-
+    private IEnumerator LoadGemVariantsFromAddressables()
+    {
+        _loadedGemVariants.Clear();
+        _loadedSpecialVariants.Clear();
+        
+        // Load normal gem variants
+        if (_levelData.gemVariantAddresses != null && _levelData.gemVariantAddresses.Count > 0)
+        {
+            Debug.Log($"Loading {_levelData.gemVariantAddresses.Count} gem variants from Addressables...");
+            foreach (string address in _levelData.gemVariantAddresses)
+            {
+                var handle = Addressables.LoadAssetAsync<GemVariant>(address);
+                yield return handle;
+                
+                if (handle.Status == AsyncOperationStatus.Succeeded && handle.Result != null)
+                {
+                    _loadedGemVariants.Add(handle.Result);
+                    Debug.Log($"Successfully loaded gem variant: {address}");
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load gem variant at address: {address}. Status: {handle.Status}");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("LevelData has no gem variant addresses specified!");
+        }
+        
+        // Load special gem variants
+        if (_levelData.specialGemVariantAddresses != null && _levelData.specialGemVariantAddresses.Count > 0)
+        {
+            Debug.Log($"Loading {_levelData.specialGemVariantAddresses.Count} special gem variants from Addressables...");
+            foreach (string address in _levelData.specialGemVariantAddresses)
+            {
+                var handle = Addressables.LoadAssetAsync<GemVariant>(address);
+                yield return handle;
+                
+                if (handle.Status == AsyncOperationStatus.Succeeded && handle.Result != null)
+                {
+                    _loadedSpecialVariants.Add(handle.Result);
+                    Debug.Log($"Successfully loaded special gem variant: {address}");
+                }
+                else
+                {
+                    Debug.LogError($"Failed to load special gem variant at address: {address}. Status: {handle.Status}");
+                }
+            }
+        }
+        
+        
+        if (_loadedGemVariants.Count == 0)
+        {
+            Debug.LogError("No gem variants loaded from Addressables! Please check LevelData configuration and ensure Addressable keys are correct.");
+        }
+        else
+        {
+            Debug.Log($"Successfully loaded {_loadedGemVariants.Count} gem variants and {_loadedSpecialVariants.Count} special variants.");
+        }
     }
 
     private void OnEnable()
@@ -117,9 +222,10 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        // Chọn variant hợp lệ
+        // Chọn variant hợp lệ từ loaded variants
         List<GemVariant> candidates = new List<GemVariant>();
-        foreach (var v in _gemVariants)
+        
+        foreach (var v in _loadedGemVariants)
         {
             if (!excludedColors.Contains(v.color))
                 candidates.Add(v);
@@ -128,20 +234,46 @@ public class GridManager : MonoBehaviour
         GemVariant selected =
             candidates.Count > 0
             ? candidates[Random.Range(0, candidates.Count)]
-            : _gemVariants[Random.Range(0, _gemVariants.Length)];
+            : (_loadedGemVariants.Count > 0 ? _loadedGemVariants[Random.Range(0, _loadedGemVariants.Count)] : null);
+        
+        if (selected == null)
+        {
+            Debug.LogError("No gem variant available to spawn!");
+            return null;
+        }
 
         // Spawn gem
-        GameObject gemObj;
+        GameObject gemObj = null;
         if (ObjectPooler.Instance != null)
         {
             gemObj = ObjectPooler.Instance.GetObject("Gem", spawnPos, Quaternion.identity);
         }
-        else
+        
+        // Fallback nếu pool không có object hoặc ObjectPooler không tồn tại
+        if (gemObj == null)
         {
-            gemObj = Instantiate(GetGemPrefab(), spawnPos, Quaternion.identity);
+            GameObject prefab = GetGemPrefab();
+            if (prefab == null)
+            {
+                Debug.LogError("Gem prefab is not assigned!");
+                return null;
+            }
+            gemObj = Instantiate(prefab, spawnPos, Quaternion.identity);
+        }
+
+        if (gemObj == null)
+        {
+            Debug.LogError("Failed to create gem object!");
+            return null;
         }
 
         Gem gem = gemObj.GetComponent<Gem>();
+        if (gem == null)
+        {
+            Debug.LogError("Gem component not found on gem object!");
+            return null;
+        }
+        
         gem.ResetState();
         gem.Init(selected);
         return gemObj;
@@ -177,8 +309,12 @@ public class GridManager : MonoBehaviour
 
     public GemVariant GetRandomGemVariant()
     {
-        //return _gemPrefabs[Random.Range(0, _gemPrefabs.Length)];
-        return _gemVariants[Random.Range(0,_gemVariants.Length)] ;
+        if (_loadedGemVariants.Count == 0)
+        {
+            Debug.LogError("No gem variants available!");
+            return null;
+        }
+        return _loadedGemVariants[Random.Range(0, _loadedGemVariants.Count)];
     }
 
     public GameObject GetGemPrefab()
@@ -273,7 +409,7 @@ public class GridManager : MonoBehaviour
 
     public GemVariant GetSpecialVariant(GemColor color, GemType type)
     {
-        foreach (var v in _gemSpecialVariants)
+        foreach (var v in _loadedSpecialVariants)
         {
             if (v.color == color && v.type == type)
                 return v;
@@ -284,12 +420,18 @@ public class GridManager : MonoBehaviour
     // Lấy ColorExplode variant với bất kỳ màu nào (vì ColorExplode có màu đặc biệt)
     public GemVariant GetColorExplodeVariant()
     {
-        foreach (var v in _gemSpecialVariants)
+        foreach (var v in _loadedSpecialVariants)
         {
             if (v.type == GemType.ColorExplode)
                 return v;
         }
         return null;
+    }
+    
+    // Public method để set LevelData từ bên ngoài (nếu cần)
+    public void SetLevelData(LevelData levelData)
+    {
+        _levelData = levelData;
     }
 
     public Vector2 GetMonsterSpawnPosition(int column, float offSetY = 1.5f)

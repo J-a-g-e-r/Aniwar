@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Green
+  m_EditorClassIdentifier: 
+  m_GroupName: Green
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3ac400eb5ec0fd0479d2898467129335
+  m_SerializeEntries:
+  - m_GUID: 447e30468df46404c8808c166719272d
+    m_Address: GreenAreaExplode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 739ada4053622954589740dee74bf650
+    m_Address: Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 817d1364fe4c5fb43aa6a927cc3461c9
+    m_Address: GreenVertical
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f463205c83b2fc34da033b41ca0d8ca5
+    m_Address: GreenHorizontal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 92ab40edc0973e3469a88f6cd825ecf2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 564f545ab85c7ec4b8655c0664333375, type: 2}
+    - {fileID: 11400000, guid: 81bd78d2677a4a44a9003facc6bb296c, type: 2}

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Orange
+  m_EditorClassIdentifier: 
+  m_GroupName: Orange
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 0eec85573c04b3c40aa3290434a592b2
+  m_SerializeEntries:
+  - m_GUID: 696c89e95fd54dd42b23c375c9aa0804
+    m_Address: Orange
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ea3aeca85c144e4094d17523df5e77b
+    m_Address: OrangeAreaExplode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f2bfef391b89a5a4e8836f4bf28a520e
+    m_Address: OrangeHorizontal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f49b02d31823a0849acbd7d42fbf299e
+    m_Address: OrangeVertical
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 92ab40edc0973e3469a88f6cd825ecf2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 30cec207ad2054248954f9c05c1e46de, type: 2}
+    - {fileID: 11400000, guid: cfd3e3153c0ef534baa2ec87cc52dc17, type: 2}

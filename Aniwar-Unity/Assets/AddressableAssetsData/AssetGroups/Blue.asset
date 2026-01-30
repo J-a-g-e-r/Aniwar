@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Blue
+  m_EditorClassIdentifier: 
+  m_GroupName: Blue
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f127f555717176a42b3037ba0e7dfe2b
+  m_SerializeEntries:
+  - m_GUID: 1e902a9351c7a9f43b894714bbe55ab8
+    m_Address: Blue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b296fd57d8d91f40b47e0fb7dcd16c2
+    m_Address: BlueHorizontal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98bc9c25b9b68734ebb9052226119e6e
+    m_Address: BlueAreaExplode
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab6489d3ff5e4134cbba71ce5af504ed
+    m_Address: BlueVertical
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 92ab40edc0973e3469a88f6cd825ecf2, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6d63513ef062ca245a5b2df49f57307a, type: 2}
+    - {fileID: 11400000, guid: 476cc09e6099d9343be9a1d4ea5e2677, type: 2}
